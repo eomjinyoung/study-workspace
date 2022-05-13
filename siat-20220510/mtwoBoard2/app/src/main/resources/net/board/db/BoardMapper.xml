@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.board.db.BoardDao">
+  <select id="getListCount" resultType="int">
+    select count(*) from board
+  </select>
+  
+  <select id="getBoardList" resultType="net.board.db.BoardBean">
+    <![CDATA[
+    select * from
+    (select rownum rnum, imsi.* from 
+    (select * from board order by BOARD_RE_REF desc,BOARD_RE_SEQ asc) imsi) 
+    where rnum>=#{startrow} and rnum<=#{endrow}
+    ]]>
+  </select>
+</mapper>

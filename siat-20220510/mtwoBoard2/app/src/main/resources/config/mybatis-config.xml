@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- 여러 개의 DB 연결 정보를 설정하는 태그 -->
+  <environments default="development">
+  
+    <!-- DB 연결 정보를 설정 -->
+    <environment id="development">
+    
+      <!-- 트랜잭션 제어는 JDBC 기능을 사용한다 -->
+      <transactionManager type="JDBC"/>
+      
+      <!-- 커넥션풀에서 관리할 DB 연결 정보 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="p1_master"/>
+        <property name="password" value="p1234"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="net/board/db/BoardMapper.xml"/>
+  </mappers>
+</configuration>
