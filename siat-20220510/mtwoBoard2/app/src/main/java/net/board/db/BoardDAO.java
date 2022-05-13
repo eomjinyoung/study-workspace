@@ -100,7 +100,7 @@ public class BoardDAO {
 
     try{
       con = ds.getConnection();
-      pstmt=con.prepareStatement("select max(board_num) from board");
+      pstmt=con.prepareStatement("");
       rs = pstmt.executeQuery();
 
       if(rs.next())
@@ -108,10 +108,10 @@ public class BoardDAO {
       else
         num=1;
 
-      sql="insert into board (BOARD_NUM,BOARD_NAME,BOARD_PASS,BOARD_SUBJECT,";
-      sql+="BOARD_CONTENT, BOARD_FILE, BOARD_RE_REF,"+
-          "BOARD_RE_LEV,BOARD_RE_SEQ,BOARD_READCOUNT,"+
-          "BOARD_DATE) values(?,?,?,?,?,?,?,?,?,?,sysdate)";
+      sql="";
+      sql+=""+
+          ""+
+          "";
 
       pstmt = con.prepareStatement(sql);
       pstmt.setInt(1, num);
