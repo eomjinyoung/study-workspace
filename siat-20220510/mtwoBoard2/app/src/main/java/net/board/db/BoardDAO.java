@@ -41,17 +41,16 @@ public class BoardDAO {
   }
   //게시판 자료 갯수 = 게시글의 갯수
   public int getListCount() {
-    int x= 0;
 
     SqlSession sqlSession = sqlSessionFactory.openSession(); 
     try{
-      x = sqlSession.selectOne("net.board.db.BoardDAO.getListCount");
+      return sqlSession.selectOne("net.board.db.BoardDAO.getListCount");
     }catch(Exception ex){
       System.out.println("getListCount 실패: " + ex);			
     }finally{
       if(sqlSession!=null) sqlSession.close();
     }
-    return x;
+    return 0;
   }
 
   //�� ��� ����
@@ -90,51 +89,31 @@ public class BoardDAO {
     return null;
   }
 
+  public int getMaxNo() {
+
+    SqlSession sqlSession = sqlSessionFactory.openSession(); 
+    try{
+      return sqlSession.selectOne("net.board.db.BoardDAO.getMaxNo");
+    }catch(Exception ex){
+      System.out.println("getMaxNo 실패: " + ex);     
+    }finally{
+      if(sqlSession!=null) sqlSession.close();
+    }
+    return 0;
+  }
+
   //�� ���
   public boolean boardInsert(BoardBean board){
-
-    int num =0;
-    String sql="";
-
-    int result=0;
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
 
     try{
-      con = ds.getConnection();
-      pstmt=con.prepareStatement("");
-      rs = pstmt.executeQuery();
-
-      if(rs.next())
-        num =rs.getInt(1)+1;
-      else
-        num=1;
-
-      sql="";
-      sql+=""+
-          ""+
-          "";
-
-      pstmt = con.prepareStatement(sql);
-      pstmt.setInt(1, num);
-      pstmt.setString(2, board.getBOARD_NAME());
-      pstmt.setString(3, board.getBOARD_PASS());
-      pstmt.setString(4, board.getBOARD_SUBJECT());
-      pstmt.setString(5, board.getBOARD_CONTENT());
-      pstmt.setString(6, board.getBOARD_FILE());
-      pstmt.setInt(7, num);
-      pstmt.setInt(8, 0);
-      pstmt.setInt(9, 0);
-      pstmt.setInt(10, 0);
-
-      result=pstmt.executeUpdate();
-      if(result==0)return false;
-
-      return true;
+      int num = getMaxNo() + 1;
+      board.setBOARD_NUM(num);
+      return sqlSession.insert("net.board.db.BoardDAO.boardInsert", board) == 1;
     }catch(Exception ex){
       System.out.println("boardInsert ���� : "+ex);
     }finally{
-      if(rs!=null) try{rs.close();}catch(SQLException ex){}
-      if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
-      if(con!=null) try{con.close();}catch(SQLException ex){}
+      if(sqlSession!=null) sqlSession.close();
     }
     return false;
   }

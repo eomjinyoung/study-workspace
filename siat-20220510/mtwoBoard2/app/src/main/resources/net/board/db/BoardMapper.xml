@@ -28,7 +28,11 @@
     insert into board (BOARD_NUM,BOARD_NAME,BOARD_PASS,BOARD_SUBJECT,
     BOARD_CONTENT, BOARD_FILE, BOARD_RE_REF,
     BOARD_RE_LEV,BOARD_RE_SEQ,BOARD_READCOUNT,
-    BOARD_DATE) values(?,?,?,?,?,?,?,?,?,?,sysdate)
+    BOARD_DATE) 
+    values(#{BOARD_NUM},#{BOARD_NAME},#{BOARD_PASS},#{BOARD_SUBJECT},
+    #{BOARD_CONTENT},#{BOARD_FILE},#{BOARD_NUM},
+    0,0,0,
+    sysdate)
   </insert>
   
 </mapper>
