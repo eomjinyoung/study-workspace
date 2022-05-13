@@ -35,6 +35,17 @@
     sysdate)
   </insert>
   
+  <update id="boardModify">
+    update board set 
+      BOARD_SUBJECT=#{BOARD_SUBJECT},
+      BOARD_CONTENT=#{BOARD_CONTENT} 
+    where 
+      BOARD_NUM=#{BOARD_NUM}
+  </update>
+  
+  <delete id="boardDelete">
+    delete from board where BOARD_num=#{value}
+  </delete>
 </mapper>
 
 

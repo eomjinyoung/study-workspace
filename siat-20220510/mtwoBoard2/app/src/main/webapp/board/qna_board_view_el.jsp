@@ -48,9 +48,9 @@
    
    <tr>
       <td colspan="2">
-         <a href="./BoardReplyView.bo?num= ${boarddata.getBOARD_NUM()}">[답변]</a>&nbsp;&nbsp;
-         <a href="./BoardModify.bo?num= ${boarddata.getBOARD_NUM()}">[수정]</a>&nbsp;&nbsp;
-         <a href="./BoardDelete.bo?num= ${boarddata.getBOARD_NUM()}">[삭제]</a>&nbsp;&nbsp;
+         <a href="./BoardReplyView.bo?num=${boarddata.getBOARD_NUM()}">[답변]</a>&nbsp;&nbsp;
+         <a href="./BoardModify.bo?num=${boarddata.getBOARD_NUM()}">[수정]</a>&nbsp;&nbsp;
+         <a href="./BoardDelete.bo?num=${boarddata.getBOARD_NUM()}">[삭제]</a>&nbsp;&nbsp;
          <a href="./BoardList.bo">[목록]</a>
       </td>
    </tr>

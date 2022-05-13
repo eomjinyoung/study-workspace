@@ -109,6 +109,8 @@ public class BoardDAO {
     try{
       int num = getMaxNo() + 1;
       board.setBOARD_NUM(num);
+      if (board.getBOARD_FILE() == null)
+        board.setBOARD_FILE("");
       return sqlSession.insert("net.board.db.BoardDAO.boardInsert", board) == 1;
     }catch(Exception ex){
       System.out.println("boardInsert ���� : "+ex);
@@ -178,52 +180,28 @@ public class BoardDAO {
   //�� ����
   public boolean boardModify(BoardBean modifyboard) throws Exception{
 
-    String sql="update board set BOARD_SUBJECT=?,BOARD_CONTENT=? where BOARD_NUM=?";
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
 
     try{
-      con = ds.getConnection();
-      pstmt = con.prepareStatement(sql);
-      pstmt.setString(1, modifyboard.getBOARD_SUBJECT());
-      pstmt.setString(2, modifyboard.getBOARD_CONTENT());
-      pstmt.setInt(3, modifyboard.getBOARD_NUM());
-      pstmt.executeUpdate();
-      return true;
+      return sqlSession.update("net.board.db.BoardDAO.boardModify", modifyboard) == 1;
     }catch(Exception ex){
       System.out.println("boardModify ���� : " + ex);
     }finally{
-      if(rs!=null)try{rs.close();}catch(SQLException ex){}
-      if(pstmt!=null)try{pstmt.close();}catch(SQLException ex){}
-      if(con!=null) try{con.close();}catch(SQLException ex){}
+      if(sqlSession!=null) sqlSession.close();
     }
     return false;
   }
 
   //�� ����
   public boolean boardDelete(int num){
-
-    String board_delete_sql="delete from board where BOARD_num=?";
-
-    int result=0;
-
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
     try{
-      con = ds.getConnection();
-      pstmt=con.prepareStatement(board_delete_sql);
-      pstmt.setInt(1, num);
-      result=pstmt.executeUpdate();
-      if(result==0)return false;
-
-      return true;
+      return sqlSession.delete("net.board.db.BoardDAO.boardDelete", num) == 1;
     }catch(Exception ex){
       System.out.println("boardDelete ���� : "+ex);
     }	finally{
-      try{
-        if(pstmt!=null)pstmt.close();
-        if(con!=null) con.close();
-      }
-      catch(Exception ex){}
-
+      if (sqlSession != null) sqlSession.close();
     }
-
     return false;
   }
 

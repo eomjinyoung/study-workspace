@@ -1,12 +1,33 @@
 1일차: 
 	- Standalone에서 웹 애플리케이션까지의 소프트웨어 아키텍처 특징을 설명
+	- Standalone 구조의 특징
+      - Standalone + File 
+      - Client / Server(DBMS) 구조 등장
+      - Client / Application Server / DBMS 구조 등장
+      - Web Browser / Web Server / Application Server / DBMS 구조 등장
+      - Web Browser / Web Server / 서블릿 컨테이너 / 서블릿 / DBMS 구조 등장
 2일차:
 	- 기존 프로젝트를 Gradle 프로젝트로 변환
-	- 빌드 도구 개요 및 Gradle 사용
+	- 빌드 도구 개요 
+	  - Ant, Maven, Gradle 의 등장 이유와 주요 특징 설명
+      - Gradle 사용하여 프로젝트 폴더 준비
 3일차:   
      	- Gradle로 의존 라이브러리를 다루는 방법
    	- JDBC 코드를 Mybatis 라이브러리로 대체
-	- BoardDao에 Mybatis 적용
+        - Mybatis 라이브러리 추가
+        - mybatis-config.xml 파일 생성 및 항목에 대한 설명
+        - BoardMapper.xml 파일 생성 및 항목에 대한 설명
+	- BoardDao 클래스에 Mybatis 적용
+        - getListCount() 
+        - getBoardList()
+4일차:
+      - BoardDao 클래스에 Mybatis 적용(계속) 
+        - getBoardList() 상세 설명
+        - getDetail()
+        - getMaxNo() 추가
+        - boardInsert()
+        - boardModify()
+        - boardDelete()
 
 
 [Gradle 프로젝트 준비]
