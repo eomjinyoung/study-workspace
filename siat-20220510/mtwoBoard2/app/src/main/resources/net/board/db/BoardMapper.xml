@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.board.db.BoardDao">
+<mapper namespace="net.board.db.BoardDAO">
   <select id="getListCount" resultType="int">
     select count(*) from board
   </select>
@@ -15,4 +15,9 @@
     where rnum>=#{startrow} and rnum<=#{endrow}
     ]]>
   </select>
+  
+  <select id="getDetail" resultType="net.board.db.BoardBean">
+    select * from board where BOARD_NUM = #{value}
+  </select>
+  
 </mapper>

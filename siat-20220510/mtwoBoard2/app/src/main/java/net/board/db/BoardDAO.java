@@ -45,7 +45,7 @@ public class BoardDAO {
 
     SqlSession sqlSession = sqlSessionFactory.openSession(); 
     try{
-      x = sqlSession.selectOne("net.board.db.BoardDao.getListCount");
+      x = sqlSession.selectOne("net.board.db.BoardDAO.getListCount");
     }catch(Exception ex){
       System.out.println("getListCount 실패: " + ex);			
     }finally{
@@ -66,7 +66,7 @@ public class BoardDAO {
       map.put("startrow", startrow);
       map.put("endrow", endrow);
 
-      return sqlSession.selectList("net.board.db.BoardDao.getBoardList", map);
+      return sqlSession.selectList("net.board.db.BoardDAO.getBoardList", map);
     }catch(Exception ex){
       System.out.println("getBoardList 실패	 : " + ex);
     }finally{
@@ -78,35 +78,14 @@ public class BoardDAO {
   //�� ���� ����.
   public BoardBean getDetail(int num) throws Exception{
 
-    BoardBean board = null;
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
     try{
-      con = ds.getConnection();
-      pstmt = con.prepareStatement(
-          "select * from board where BOARD_NUM = ?");
-      pstmt.setInt(1, num);
-
-      rs= pstmt.executeQuery();
-
-      if(rs.next()){
-        board = new BoardBean();
-        board.setBOARD_NUM(rs.getInt("BOARD_NUM"));
-        board.setBOARD_NAME(rs.getString("BOARD_NAME"));
-        board.setBOARD_SUBJECT(rs.getString("BOARD_SUBJECT"));
-        board.setBOARD_CONTENT(rs.getString("BOARD_CONTENT"));
-        board.setBOARD_FILE(rs.getString("BOARD_FILE"));
-        board.setBOARD_RE_REF(rs.getInt("BOARD_RE_REF"));
-        board.setBOARD_RE_LEV(rs.getInt("BOARD_RE_LEV"));
-        board.setBOARD_RE_SEQ(rs.getInt("BOARD_RE_SEQ"));
-        board.setBOARD_READCOUNT(rs.getInt("BOARD_READCOUNT"));
-        board.setBOARD_DATE(rs.getDate("BOARD_DATE"));
-      }
-      return board;
+      return sqlSession.selectOne("net.board.db.BoardDAO.getDetail", num);
     }catch(Exception ex){
       System.out.println("getDetail ���� : " + ex);
     }finally{
-      if(rs!=null)try{rs.close();}catch(SQLException ex){}
-      if(pstmt !=null)try{pstmt.close();}catch(SQLException ex){}
-      if(con!=null) try{con.close();}catch(SQLException ex){}
+      if(sqlSession != null) sqlSession.close();
     }
     return null;
   }
